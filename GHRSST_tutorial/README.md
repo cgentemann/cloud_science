@@ -1,4 +1,4 @@
-##GHRSST_tutorial
+## GHRSST_tutorial
 
 Some helpful webpages on python:
 http://earthpy.org/category/introduction-to-python.html
