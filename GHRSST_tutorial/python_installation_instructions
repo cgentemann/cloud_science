@@ -1,17 +1,20 @@
+
+# Anaconda full installation versus Mini-Conda installation
+
 When I first starting using Python I used the full Anaconda installation, but after a while I found that I greatly preferred Miniconda.
 Anaconda is great, it has a nice interface and quickly downloads 1500+ libraries that you can just click on to use.  You can read more
 about Anaconda and get the download here: https://www.anaconda.com/distribution/
 
-But, after a while I realized that Anaconda was taking up 17GB on my hard drive and after using it for a while, it
-seemed that it was sometimes prone to getting hung up.  I took a leap and switched to Miniconda, which I find more
-intuative, cleaner, and easier to use.  With Miniconda you have to install the libraries that you want, this makes
+With Miniconda you have to install the libraries that you want, this makes
 it smaller, and also more controlled.  So here are the instructions for installing Miniconda and some of the most
 common libraries that Oceanographers will probably find helpful.  
+
+# Install Miniconda
 
 Download Miniconda, Python 3.7 here: https://docs.conda.io/en/latest/miniconda.html
 Install the downloaded file.  I reboot a lot, so I just recommend a reboot after installing any software.
 
-Next:
+# Open up an anaconda prompt
 Windows:  From your start button, look for Anaconda, within that folder open 'Anaconda Prompt'.  You are done, skip to next section on installing libraries.
 macOS: Open Launchpad, then open Terminal or iTerm.
 Linux–CentOS: Open Applications - System Tools - Terminal.
@@ -26,23 +29,32 @@ An important note about security. When you install libraries they need to be fro
 or group that controls the software package. You also need to make sure that you don't have a typo in the library name.  
 https://www.bleepingcomputer.com/news/security/python-package-installation-can-trigger-malicious-code/
 
-type the following commands at your python prompt:
-conda install xarray dask netCDF4 bottleneck scikit-learn matplotlib seaborn basemap h5py jupyter basemap-data-hires
-conda install -c anaconda xlrd
-conda install -c conda-forge palettable geopy cartopy
-conda install -c pyviz holoviews bokeh
-python -m pip install --upgrade pip
-pip install beautifulsoup4
+* type the following commands at your anaconda prompt:
+conda create -n satenv
+conda activate satenv
+conda install xarray dask netCDF4 bottleneck scikit-learn matplotlib seaborn h5py jupyter basemap-data-hires
+conda install -c anaconda xlrd distributed
+conda install -c conda-forge palettable geopy cartopy satpy zarr
 
-Once finished, let's open a Jupyter notebook:
+
+* Once finished, let's open a Jupyter notebook:
 At anaconda prompt type:
 jupyter notebook
 This will open a jupyter notebook in your browser.  From there you can open notebooks and run them.  It is probably easiest to navigate
 to where you keep your code, create a new 'python' directory and organize your code into projects from there.  (This will also make using GitHub easier).
 
+* Next time you want to code
+Open your anaconda promt.  You will see (base) at the front of the prompt.  To get into your satenv and open a notebook type:
+conda activate satenv
+jupyter notebook
 
-
-
+* Planning for the future
+At some point you will want other libraries.  It is best to create a new enviornment for each project. 
+You can do this by creating a new environment and then installing libraries in it.  Each time you start up, you will want to activate
+the environment you will be working in .
+conda create -n newenv
+conda activate newenv
+conda install   ..... some libraries....
 
 
 
