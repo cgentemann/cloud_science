@@ -1,7 +1,7 @@
 
 # Click here to start interactive tutorial
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/cgentemann/cloud_science/tree/master/GHRSST_tutorial/master)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/cgentemann/cloud_science/master)
 
 # GHRSST_tutorial
 
