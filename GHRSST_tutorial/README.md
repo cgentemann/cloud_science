@@ -18,7 +18,7 @@ A one day introduction to Python for oceanographers to introduce oceanographers 
 ### Preliminary Schedule
 - 10:00 Intro to the Python ecosystem and StackOverflow/Google 
 - 10:30 Introduction to Jupyter Notebook, basic python commands
-	Data structures: pandas, numpy, dictionaries, inherited data types
+	Data structures: pandas, numpy, dictionaries
 - 12:00 Lunch break
 - 13:00 Components of a Xarray dataset, reading, selecting, plotting, saving data 
 - 15:00 Example collocating cruise data with satellite data
