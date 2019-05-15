@@ -20,10 +20,11 @@ A one day introduction to Python for oceanographers to introduce oceanographers 
 - 10:30 Introduction to Jupyter Notebook, basic python commands
 	Data structures: pandas, numpy, dictionaries
 - 12:00 Lunch break
+- 12:30 Lunch discussion of what is cloud computing and how do you run something on the cloud?
 - 13:00 Components of a Xarray dataset, reading, selecting, plotting, saving data 
 - 14:00 Example collocating cruise data with satellite data
-- 15:00 Discussion of cloud computing, using Git, and software citation
-- 15:45 Wrap-up 
+- 15:00 Using Git and software citation
+- 15:30 Wrap-up 
 - 16:00 End
 
 
