@@ -21,9 +21,10 @@ A one day introduction to Python for oceanographers to introduce oceanographers 
 	Data structures: pandas, numpy, dictionaries
 - 12:00 Lunch break
 - 13:00 Components of a Xarray dataset, reading, selecting, plotting, saving data 
-- 15:00 Example collocating cruise data with satellite data
- -15:45 Wrap-up 
- -16:00 End
+- 14:00 Example collocating cruise data with satellite data
+- 15:00 Discussion of cloud computing, using Git, and software citation
+- 15:45 Wrap-up 
+- 16:00 End
 
 
 Future topics may include (as time allows):
