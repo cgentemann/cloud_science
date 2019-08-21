@@ -34,7 +34,7 @@ conda create -n satenv
 conda activate satenv
 conda install xarray dask netCDF4 bottleneck scikit-learn matplotlib seaborn h5py jupyter basemap-data-hires
 conda install -c anaconda xlrd distributed
-conda install -c conda-forge palettable geopy cartopy satpy zarr
+conda install -c conda-forge palettable geopy cartopy satpy zarr podaacpy
 
 
 * Once finished, let's open a Jupyter notebook:
