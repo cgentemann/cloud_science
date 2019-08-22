@@ -16,7 +16,7 @@ https://github.com/cgentemann/cloud_science/blob/master/GHRSST_tutorial/python_i
 A one day introduction to Python for oceanographers to introduce oceanographers to Python programming and reproducible research using Jupyter Notebooks, Git, software citations, and cloud computing.  This hands-on course will use common oceanographic research analyses to demonstrate capabilities of Python, open source software libraries, and cloud computing.
  
 ### Preliminary Schedule
-- 09:00 Intro to the Python ecosystem and StackOverflow, Git, Pangeo, Cloud computing 
+- 09:00 Code of conduct, Intro to the Python ecosystem and StackOverflow, Git, Pangeo, Cloud computing 
 - 09:30 Introduction to Jupyter Notebook, basic python commands
 	Data structures: pandas, numpy, dictionaries
 - 11:00 Components of a Xarray dataset, reading, selecting, plotting, saving data
