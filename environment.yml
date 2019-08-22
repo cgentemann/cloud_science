@@ -11,4 +11,5 @@ dependencies:
   - xarray=0.12.1
   - netcdf4=1.5.1.2
   - dask=1.2.2
+  - podaacpy=2.3.0
 prefix: C:\Users\gentemann\Miniconda3\envs\tutorialenv
