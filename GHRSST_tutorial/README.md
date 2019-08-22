@@ -1,6 +1,8 @@
 
 # Click here to start interactive tutorial
 
+[![Binder](https://binder.pangeo.io/badge_logo.svg)](https://binder.pangeo.io/v2/gh/cgentemann/cloud_science/master)
+
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/cgentemann/cloud_science/master)
 
 # GHRSST_tutorial
