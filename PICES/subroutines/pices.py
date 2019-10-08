@@ -45,25 +45,39 @@ def get_filename(var):
         file='./data/chl.mnmean.nc'
     return file
        
-def get_mask():
+def get_pices_mask():
     import xarray as xr
     #read in mask file
 #    filename = './data/PICES_all_mask.nc'
 #    ds_pices = xr.open_dataset(filename)
 #    ds_pices.close()
     #read in mask file
-    filename = './data/PICES_all_mask360.nc'
+    filename = './data/PICES/PICES_all_mask360.nc'
     ds_pices360 = xr.open_dataset(filename)
     ds_pices360.close()
     return ds_pices360
 #    ds_pices_revlat = ds_pices.sortby(ds_pices.lat, ascending = False)
 #    ds_pices360_revlat = ds_pices360.sortby(ds_pices360.lat, ascending = False)
 
+def get_lme_mask():
+    import xarray as xr
+    #read in mask file
+#    filename = './data/PICES_all_mask.nc'
+#    ds_pices = xr.open_dataset(filename)
+#    ds_pices.close()
+    #read in mask file
+    filename = './data/LME/LME_all_mask.nc'
+    ds = xr.open_dataset(filename)
+    ds.close()
+    return ds
+#    ds_pices_revlat = ds_pices.sortby(ds_pices.lat, ascending = False)
+#    ds_pices360_revlat = ds_pices360.sortby(ds_pices360.lat, ascending = False)
+
     
-def get_data(var, ilme, initial_date,final_date):
+def get_pices_data(var, ilme, initial_date,final_date):
     import xarray as xr
     
-    file = get_filename('sst')
+    file = get_filename(var)
     print('opening:',file)
     ds = xr.open_dataset(file)
     ds.close()
@@ -72,9 +86,36 @@ def get_data(var, ilme, initial_date,final_date):
     ds = ds.sel(time=slice(initial_date,final_date))   
     
     #read in mask
-    ds_pices360 = get_mask()
+    ds_mask = get_pices_mask()
     #interpolate mask
-    mask_interp = ds_pices360.interp_like(ds,method='nearest')
+    mask_interp = ds_mask.interp_like(ds,method='nearest')
+
+    #create mean for pices region
+    cond = (mask_interp.region_mask==ilme)
+    tem = weighted_mean_of_data(ds,cond)
+    data_mean=tem.assign_coords(region=ilme)
+
+    #make climatology and anomalies using .groupby method
+    data_climatology = data_mean.groupby('time.month').mean('time')
+    data_anomaly = data_mean.groupby('time.month') - data_climatology
+
+    return data_mean, data_climatology, data_anomaly
+
+def get_lme_data(var, ilme, initial_date,final_date):
+    import xarray as xr
+    
+    file = get_filename(var)
+    print('opening:',file)
+    ds = xr.open_dataset(file)
+    ds.close()
+    
+    #subset to time of interest
+    ds = ds.sel(time=slice(initial_date,final_date))   
+    
+    #read in mask
+    ds_mask = get_lme_mask()
+    #interpolate mask
+    mask_interp = ds_mask.interp_like(ds,method='nearest')
 
     #create mean for pices region
     cond = (mask_interp.region_mask==ilme)
