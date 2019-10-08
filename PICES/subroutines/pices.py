@@ -28,8 +28,8 @@ def weighted_mean_of_data(data_in,data_cond):
     #pixel_area = pixel_area.where(np.isfinite(data_mask))
     sum_data=(data_in*pixel_area).sum(dim=('lon', 'lat'),keep_attrs=True)
     total_ocean_area = pixel_area.sum(dim=('lon', 'lat'))
-    print(sum_data)
-    print(total_ocean_area)
+    #print(sum_data)
+    #print(total_ocean_area)
     data_weighted_mean = sum_data/total_ocean_area
     return data_weighted_mean
 
@@ -105,7 +105,7 @@ def get_lme_data(var, ilme, initial_date,final_date):
     import xarray as xr
     
     file = get_filename(var)
-    print('opening:',file)
+    #print('opening:',file)]
     ds = xr.open_dataset(file)
     ds.close()
     
