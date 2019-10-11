@@ -2,6 +2,7 @@ def weighted_mean_of_masked_data(data_in,data_mask,data_cond):
     #data_in = input xarray data to have weighted mean
     #data_mask = nan mask eg. land values
     #LME mask T or F values
+    global_attrs = data_in.attrs
     R = 6.37e6 #radius of earth in m
     grid_dy,grid_dx = (data_in.lat[0]-data_in.lat[1]).data,(data_in.lon[0]-data_in.lon[1]).data
     dϕ = np.deg2rad(grid_dy)
@@ -10,7 +11,11 @@ def weighted_mean_of_masked_data(data_in,data_mask,data_cond):
     pixel_area = dA.where(data_cond)  #pixel_area.plot()
     pixel_area = pixel_area.where(np.isfinite(data_mask))
     total_ocean_area = pixel_area.sum(dim=('lon', 'lat'))
-    data_weighted_mean = (data_in * pixel_area).sum(dim=('lon', 'lat')) / total_ocean_area
+    data_weighted_mean = (data_in * pixel_area).sum(dim=('lon', 'lat'),keep_attrs=True) / total_ocean_area
+    data_weighted_mean.attrs = global_attrs  #save global attributes
+    for a in data_in:                      #set attributes for each variable in dataset
+        gatt = data_in[a].attrs
+        data_weighted_mean[a].attrs=gatt
     return data_weighted_mean
 
 def weighted_mean_of_data(data_in,data_cond):
@@ -19,6 +24,7 @@ def weighted_mean_of_data(data_in,data_cond):
     #data_in = input xarray data to have weighted mean
     #data_mask = nan mask eg. land values
     #LME mask T or F values
+    global_attrs = data_in.attrs
     R = 6.37e6 #radius of earth in m
     grid_dy,grid_dx = (data_in.lat[0]-data_in.lat[1]).data,(data_in.lon[0]-data_in.lon[1]).data
     dϕ = np.deg2rad(grid_dy)
@@ -31,6 +37,11 @@ def weighted_mean_of_data(data_in,data_cond):
     #print(sum_data)
     #print(total_ocean_area)
     data_weighted_mean = sum_data/total_ocean_area
+    data_weighted_mean.attrs = global_attrs  #save global attributes
+    for a in data_in:                      #set attributes for each variable in dataset
+        gatt = data_in[a].attrs
+        data_weighted_mean[a].attrs=gatt
+
     return data_weighted_mean
 
 
@@ -47,35 +58,21 @@ def get_filename(var):
        
 def get_pices_mask():
     import xarray as xr
-    #read in mask file
-#    filename = './data/PICES_all_mask.nc'
-#    ds_pices = xr.open_dataset(filename)
-#    ds_pices.close()
-    #read in mask file
     filename = './data/PICES/PICES_all_mask360.nc'
-    ds_pices360 = xr.open_dataset(filename)
-    ds_pices360.close()
-    return ds_pices360
-#    ds_pices_revlat = ds_pices.sortby(ds_pices.lat, ascending = False)
-#    ds_pices360_revlat = ds_pices360.sortby(ds_pices360.lat, ascending = False)
+    ds = xr.open_dataset(filename)
+    ds.close()
+    return ds
 
 def get_lme_mask():
     import xarray as xr
-    #read in mask file
-#    filename = './data/PICES_all_mask.nc'
-#    ds_pices = xr.open_dataset(filename)
-#    ds_pices.close()
-    #read in mask file
     filename = './data/LME/LME_all_mask.nc'
     ds = xr.open_dataset(filename)
     ds.close()
     return ds
-#    ds_pices_revlat = ds_pices.sortby(ds_pices.lat, ascending = False)
-#    ds_pices360_revlat = ds_pices360.sortby(ds_pices360.lat, ascending = False)
-
     
 def get_pices_data(var, ilme, initial_date,final_date):
     import xarray as xr
+    import numpy as np
     
     file = get_filename(var)
     print('opening:',file)
@@ -85,7 +82,12 @@ def get_pices_data(var, ilme, initial_date,final_date):
     #subset to time of interest
     ds = ds.sel(time=slice(initial_date,final_date))   
     
-    #read in mask
+    if (str(var).lower()=='current') or (var==3):  #if current data need to mask
+        m=ds.mask.sel(time=slice('1992-01-01','2010-01-01')).min('time')
+        ds = ds.where(m==1,np.nan)
+        ds = ds.drop('mask')
+       
+    #read in pices LME mask
     ds_mask = get_pices_mask()
     #interpolate mask
     mask_interp = ds_mask.interp_like(ds,method='nearest')
@@ -96,9 +98,11 @@ def get_pices_data(var, ilme, initial_date,final_date):
     data_mean=tem.assign_coords(region=ilme)
 
     #make climatology and anomalies using .groupby method
-    data_climatology = data_mean.groupby('time.month').mean('time')
+    data_climatology = data_mean.groupby('time.month').mean('time',keep_attrs=True)
     data_anomaly = data_mean.groupby('time.month') - data_climatology
-
+    global_attributes = ds.attrs
+    data_anomaly.attrs = global_attributes
+    
     return data_mean, data_climatology, data_anomaly
 
 def get_lme_data(var, ilme, initial_date,final_date):
