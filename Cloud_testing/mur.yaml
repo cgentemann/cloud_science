@@ -1,9 +1,9 @@
-Name: NEXRAD on AWS
-Description: Real-time and archival data from the Next Generation Weather Radar (NEXRAD) network.
-Documentation: https://docs.opendata.aws/noaa-nexrad/readme.html
-Contact: noaa.bdp@noaa.gov
-ManagedBy: "[NOAA](http://www.noaa.gov/)"
-UpdateFrequency: New Level II data is added as soon as it is available.
+Name: MUR_SST on AWS
+Description: Multi-scale Ultra-high Resolution (MUR) Sea Surface Temperature (SST) Analysis.
+Documentation: https://podaac.jpl.nasa.gov/dataset/MUR-JPL-L4-GLOB-v4.1
+Contact: podaac@podaac.jpl.nasa.gov
+ManagedBy: "[FI](http://www.faralloninstitute.org/)"
+UpdateFrequency: New data is added as soon as it is available.
 Tags:
   - aws-pds
   - earth observation
