@@ -1,0 +1,58 @@
+Name: Multi-Scale Ultra High Resolution Sea Surface Temperature on AWS
+Description: A GHRSST Level 4 gridded daily 1km merged sea surface temperature data set 
+Documentation: https://podaac.jpl.nasa.gov/dataset/MUR-JPL-L4-GLOB-v4.1
+Contact: podaac@podaac.jpl.nasa.gov
+ManagedBy: https://podaac.jpl.nasa.gov 
+UpdateFrequency: Daily
+Tags:
+  - aws-pds
+  - earth observation
+  - natural resource
+  - oceanography
+  - sea surface temperature
+  - climate change
+License: There are no restrictions on the use of this data.
+Resources:
+  - Description: 
+    ARN: 
+    Region: 
+    Type: 
+  - Description: 
+    ARN: 
+    Region: 
+    Type: 
+  - Description: 
+    ARN: 
+    Region: 
+    Type: 
+  - Description: 
+    ARN: 
+    Region: 
+    Type: 
+DataAtWork:
+  Tutorials:
+    - Title: 
+      URL: 
+      AuthorName: 
+      AuthorURL: 
+    - Title: 
+      URL: 
+      AuthorName: 
+      AuthorURL: 
+    - Title: 
+      URL: 
+      AuthorName: 
+      AuthorURL: 
+  Tools & Applications:
+    - Title: OPeNDAP server 
+      URL: https://opendap.jpl.nasa.gov/opendap/OceanTemperature/ghrsst/data/GDS2/L4/GLOB/JPL/MUR/v4.1/contents.html
+      AuthorName: PO.DAAC 
+      AuthorURL: https://podaac.jpl.nasa.gov
+    - Title: State of the Ocean (SOTO) server
+      URL: https://podaac-tools.jpl.nasa.gov/soto
+      AuthorName: PO.DAAC
+      AuthorURL: https://podaac.jpl.nasa.gov
+  Publications:
+    - Title:  A multi-scale high-resolution analysis of global sea surface temperature
+      URL: https://doi.org/10.1016/j.rse.2017.07.029
+      AuthorName:  Chin, Toshio Michael, Jorge Vazquez-Cuervo, and Edward M. Armstrong
