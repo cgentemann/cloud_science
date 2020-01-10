@@ -1,4 +1,5 @@
 ---
+
 title: "Background, Data Access, and Data Structure for the  Multi-scale Ultra-high Resolution (MUR) Sea Surface Temperature (SST) Analysis"
 authors: "Chelle Gentemann, Aimee Barciauskas, Mike Chin, Edward M Armstrong"
 Gentemann and Barciauskas reformatted the JPL MUR SST into Zarr format from netCDF3 for distribution on AWS Public Dataset Program.  Mike Chin is PI of the JPL MUR SST dataset distributed by the NASA Physical Oceanography Distributed Active Archive Center (PO.DAAC).
@@ -27,7 +28,9 @@ MUR SST data are stored in the cloud on [Amazon Web Services](https://registry.o
 
 ## Access from Amazon Web Services
 
+
 The MUR SST data are stored in the cloud using [Amazon Web Services (AWS)](https://aws.amazon.com/) object storage service, [S3](https://aws.amazon.com/s3/). AWS also provides access to flexible cloud computing resources in the form of [EC2](https://aws.amazon.com/ec2/) instances. Users may want to considering analyzing Status and Trends data using an AWS EC2 instance because data transfer will be extremely fast between S3 and EC2 compared to downloading the data to a local machine. An additional benefit of using EC2 for analyses is access to instances with more powerful computing resources than a desktop or laptop. Working with the MUR SST data can be extremely memory intensive, due to their high spatial and temporal resolution, so these additional resources can significantly speed up analyses.
+
 
 # Data Types and Structure
 
@@ -47,6 +50,7 @@ Data are grouped into daily global maps.
 
 MUR SST data v4.1 are currently provided in Zarr data format, making it easy to open with the python based Xarray software tool.
 
+
 ### Projection
 
 The MUR SST data are in a Cylindrical Lat-Lon projection on a regular 0.011 degree grid using Ellipsoid: WGS 84.  
@@ -54,7 +58,9 @@ The MUR SST data are in a Cylindrical Lat-Lon projection on a regular 0.011 degr
     
 #### analysed_sst
 
+
 This variable represents the global daily foundation sea surface temperature calculated using Multi-Resolution Variational Analysis (MRVA) method for interpolation.  Input data from the following instruments are used including the NASA Advanced Microwave Scanning Radiometer-EOS (AMSR-E), the JAXA Advanced Microwave Scanning Radiometer 2 on GCOM-W1, the Moderate Resolution Imaging Spectroradiometers (MODIS) on the NASA Aqua and Terra platforms, the US Navy microwave WindSat radiometer, the Advanced Very High Resolution Radiometer (AVHRR) on several NOAA satellites, and in situ SST observations from the NOAA iQuam project.
+
 
 #### analysis_error
 
@@ -66,6 +72,7 @@ This variable is a sea/land field composite mask.  A mask value of 1=open sea, 2
 
 #### sea_ice
 
+
 This variable is the sea_ice concentration from the EUMETSAT Ocean and Sea Ice Satellite Application Facility (OSI SAF) High Latitude Processing Center.s
 
 ## References
@@ -75,3 +82,4 @@ Chin, Toshio Michael, Jorge Vazquez-Cuervo, and Edward M. Armstrong; A multi-sca
 ## Citation
 
 To cite use of this dataset: AWS Public Dataset Program.  JPL MUR MEaSUREs Project. 2015. GHRSST Level 4 MUR Global Foundation Sea Surface Temperature Analysis (v4.1). Ver. 4.1. PO.DAAC, CA, USA.  Data accessed at AWS on [YYYY-MM-DD]. https://doi.org/10.5067/GHGMR-4FJ04.
+
