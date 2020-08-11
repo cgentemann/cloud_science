@@ -7,7 +7,6 @@ dependencies:
   - jupyter
   - holoviews
   - bokeh
-  - pyviz
   - numpy
   - pandas
   - python
