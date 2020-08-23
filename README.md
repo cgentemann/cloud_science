@@ -1,8 +1,4 @@
-This repository is code testing tutorials for cloud deployments of MUR SST
-
-[![Binder](https://aws-uswest2-binder.pangeo.io/badge_logo.svg)](https://aws-uswest2-binder.pangeo.io/v2/gh/cgentemann/cloud_science/master)
-
-# Pangeo Tutorial materials for AGU Ocean Sciences 2020
+# Tutorial materials
 
 ![pangeo-logo](https://aws1.discourse-cdn.com/standard14/uploads/pangeo/original/1X/657e3c5e0885ee4e5c2062c58f9aa094fa4b14a4.png)
 
@@ -27,6 +23,7 @@ To explore 3 difference cloud-optimized datasets (MUR SST, GOES, ERA5), select b
 
 ## Workshops
 
+* 2020 OceanHackWeek: [OceanHackWeek2020 tutorials](https://github.com/oceanhackweek).
 * 2018 AGU workshop: [Scalable Geoscience Tools in Python — Xarray, Dask, and Jupyter](https://agu.confex.com/agu/fm18/meetingapp.cgi/Session/52170).
 * 2019 AGU workshop: [Pangeo: Hands on with JupyterHub and Open-source Python Tools for Scalable Analysis of Big Data in the Geosciences](https://www.agu.org/Events/SCIWS12-Pangeo)
 
