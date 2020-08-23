@@ -10,7 +10,7 @@ This repository tutorial materials for tutorials on cloud data.  The links below
 
 To explore 3 difference cloud-optimized datasets (MUR SST, GOES, ERA5), select button below 'Pangeo Binder AWS US-west1', and then, once the binder initializes, select 'AWS-notebooks'.
 
-[![badge](https://img.shields.io/static/v1.svg?logo=Jupyter&label=Pangeo+Binder&message=AWS+us-west-2&color=orange)](https://aws-uswest2-binder.pangeo.io/v2/gh/pangeo-gallery/default-binder/master?urlpath=git-pull?repo=https://https://github.com/cgentemann/cloud_science)
+[![badge](https://img.shields.io/static/v1.svg?logo=Jupyter&label=Pangeo+Binder&message=AWS+us-west-2&color=orange)](https://aws-uswest2-binder.pangeo.io/v2/gh/pangeo-gallery/default-binder/master?urlpath=git-pull?repo=https://github.com/cgentemann/cloud_science)
 
 
 ## Tutorial Highlights
