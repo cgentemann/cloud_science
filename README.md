@@ -4,6 +4,10 @@
 
 This repository tutorial materials for tutorials on cloud data.  The links below will launch an interactive environment on [binder.pangeo.io](https://binder.pangeo.io/) Note that binder environments are ephemeral. Any changes you make will be lost once your session ends, and you shouldn't store passwords.
 
+To explore Pangeo data on GCP:
+
+| [![badge](https://img.shields.io/static/v1.svg?logo=Jupyter&label=Pangeo+Binder&message=GCE+us-central1&color=blue)](https://binder.pangeo.io/v2/gh/pangeo-gallery/default-binder/master?urlpath=git-pull?repo=https://github.com/cgentemann/cloud_science) |
+
 To explore 3 difference cloud-optimized datasets (MUR SST, GOES, ERA5), select button below 'Pangeo Binder AWS US-west1', and then, once the binder initializes, select 'tutorials'.
 
 [![badge](https://img.shields.io/static/v1.svg?logo=Jupyter&label=Pangeo+Binder&message=AWS+us-west-2&color=orange)](https://aws-uswest2-binder.pangeo.io/v2/gh/pangeo-gallery/default-binder/master?urlpath=git-pull?repo=https://github.com/cgentemann/cloud_science)
