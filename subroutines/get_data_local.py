@@ -68,3 +68,25 @@ def get_data():
     return data_dict,clim_dict
 
 #data,clim = get_data()
+
+def get_sst():
+    import fsspec
+    import xarray as xr
+    #climatology years
+    cyr1,cyr2='1993-01-01','2018-12-31'
+
+    #sst
+    file_location = 's3://mur-sst/zarr'
+    ds = xr.open_zarr(fsspec.get_mapper(file_location, anon=True),consolidated=True)
+    ds_sst = ds.drop({'analysis_error','mask','sea_ice_fraction'})
+    tem = ds_sst.analysed_sst.attrs
+    tem['var_name']='mur_sst'
+    ds_sst.analysed_sst.attrs=tem
+    ds_sst_clim = ds_sst.sel(time=slice(cyr1,cyr2))
+    ds_sst_clim = ds_sst_clim.groupby('time.dayofyear').mean('time',keep_attrs=True,skipna=False)
+    
+    #put data into a dictionary
+    data_dict={'sst':ds_sst}
+    clim_dict={'sst_clim':ds_sst_clim}
+  
+    return data_dict,clim_dict
