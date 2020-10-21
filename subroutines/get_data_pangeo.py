@@ -50,12 +50,12 @@ def get_data():
     #ds_sst_clim = ds_sst_clim.groupby('time.dayofyear').mean('time',keep_attrs=True,skipna=False)
     
     #get bathymetry from ETOPO1
-    fname_topo = './../../data/ETOPO1_Ice_g_gmt4.grd'
+    fname_topo = '/home/jovyan/data/ETOPO1_Ice_g_gmt4.grd'
     ds = xr.open_dataset(fname_topo)
     ds_topo = ds.rename_dims({'x':'lon','y':'lat'}).rename({'x':'lon','y':'lat'})
-    tem = ds_topo.z.attrs
-    tem['var_name']='etopo_depth'
-    ds_topo.z.attrs=tem
+    tem = ds_topo.attrs
+    ds_topo = ds_topo.rename({'z':'etopo_depth'})
+    ds_topo.etopo_depth.attrs=tem
     
     ds_color = xr.open_dataset('https://rsg.pml.ac.uk/thredds/dodsC/CCI_ALL-v4.2-DAILY')
     for var in ds_color:
