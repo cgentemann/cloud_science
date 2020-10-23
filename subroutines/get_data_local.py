@@ -1,10 +1,12 @@
 import xarray as xr
+import dask
 
 def get_data():
     
     #climatology years
     cyr1,cyr2='1993-01-01','2018-12-31'
-    
+#    with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+
     # CCMP test
     dir_pattern_zarr = 'F:/data/sat_data/ccmp/zarr/'
     ds= xr.open_zarr(dir_pattern_zarr)
@@ -18,7 +20,7 @@ def get_data():
         ds_ccmp[var].attrs=tem
     ds_ccmp_clim = ds_ccmp.sel(time=slice(cyr1,cyr2))
     ds_ccmp_clim = ds_ccmp_clim.groupby('time.dayofyear').mean('time',keep_attrs=True,skipna=False)
-    
+
     # AVISO test
     dir_pattern_zarr = 'F:/data/sat_data/aviso/zarr/'
     ds= xr.open_zarr(dir_pattern_zarr)
@@ -41,15 +43,15 @@ def get_data():
     ds_sst.analysed_sst.attrs=tem
     ds_sst_clim = ds_sst.sel(time=slice(cyr1,cyr2))
     ds_sst_clim = ds_sst_clim.groupby('time.dayofyear').mean('time',keep_attrs=True,skipna=False)
-    
+
     #get bathymetry from ETOPO1
     fname_topo = 'F:/data/topo/ETOPO1_Ice_g_gmt4.grd'
     ds = xr.open_dataset(fname_topo)
     ds_topo = ds.rename_dims({'x':'lon','y':'lat'}).rename({'x':'lon','y':'lat'})
-    tem = ds_topo.z.attrs
-    tem['var_name']='etopo_depth'
-    ds_topo.z.attrs=tem
-    
+    tem = ds_topo.attrs
+    ds_topo = ds_topo.rename({'z':'etopo_depth'})
+    ds_topo.etopo_depth.attrs=tem
+
     ds_color = xr.open_dataset('https://rsg.pml.ac.uk/thredds/dodsC/CCI_ALL-v4.2-DAILY')
     for var in ds_color:
         if not var=='chlor_a':
