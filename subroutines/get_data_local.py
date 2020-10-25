@@ -52,10 +52,13 @@ def get_data():
     tem = ds_topo.attrs
     ds_topo = ds_topo.rename({'z':'etopo_depth'})
     ds_topo.etopo_depth.attrs=tem
-
+    _, index = np.unique(ds_topo['lon'], return_index=True)
+    ds_topo = ds_topo.isel(lon=index)
+    _, index = np.unique(ds_topo['lat'], return_index=True)
+    ds_topo = ds_topo.isel(lat=index)
     
-    ds_color = xr.open_dataset('https://rsg.pml.ac.uk/thredds/dodsC/CCI_ALL-v5.0-8DAY')
-#    ds_color = xr.open_dataset('https://rsg.pml.ac.uk/thredds/dodsC/CCI_ALL-v4.2-DAILY')
+    #ds_color = xr.open_dataset('https://rsg.pml.ac.uk/thredds/dodsC/CCI_ALL-v5.0-8DAY')
+    ds_color = xr.open_dataset('https://rsg.pml.ac.uk/thredds/dodsC/CCI_ALL-v4.2-DAILY')
     for var in ds_color:
         if not var=='chlor_a':
             ds_color = ds_color.drop(var)
@@ -151,6 +154,10 @@ def get_data_360():
     tem = ds_topo.attrs
     ds_topo = ds_topo.rename({'z':'etopo_depth'})
     ds_topo.etopo_depth.attrs=tem
+    _, index = np.unique(ds_topo['lon'], return_index=True)
+    ds_topo = ds_topo.isel(lon=index)
+    _, index = np.unique(ds_topo['lat'], return_index=True)
+    ds_topo = ds_topo.isel(lat=index)
    
     ds_color = xr.open_dataset('https://rsg.pml.ac.uk/thredds/dodsC/CCI_ALL-v4.2-DAILY')
     for var in ds_color:
