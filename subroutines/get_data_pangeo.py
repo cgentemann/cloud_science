@@ -12,7 +12,6 @@ def get_data():
     # CCMP test
     cat_pangeo = intake.open_catalog("https://raw.githubusercontent.com/pangeo-data/pangeo-datastore/master/intake-catalogs/master.yaml")
     ds = cat_pangeo.atmosphere.nasa_ccmp_wind_vectors.to_dask()
-
     ds = ds.rename({'latitude':'lat','longitude':'lon'})
     ds.coords['lon'] = (ds.coords['lon'] + 180) % 360 - 180
     ds_ccmp = ds.sortby(ds.lon)
@@ -101,5 +100,87 @@ def get_sst():
     #put data into a dictionary
     data_dict={'sst':ds_sst}
     clim_dict={'sst_clim':ds_sst_clim}
+  
+    return data_dict,clim_dict
+
+
+def get_data_360():
+    import intake
+    import dask
+    import dask.array as dsa
+    import gcsfs
+    import fsspec
+    import xarray as xr
+    import numpy as np
+    
+    #climatology years
+    cyr1,cyr2='1993-01-01','2018-12-31'
+    
+    # CCMP test
+    cat_pangeo = intake.open_catalog("https://raw.githubusercontent.com/pangeo-data/pangeo-datastore/master/intake-catalogs/master.yaml")
+    ds = cat_pangeo.atmosphere.nasa_ccmp_wind_vectors.to_dask()
+    #dir_pattern_zarr = 'F:/data/sat_data/ccmp/zarr/'
+    #ds= xr.open_zarr(dir_pattern_zarr)
+    ds = ds.rename({'latitude':'lat','longitude':'lon'})
+    #ds.coords['lon'] = (ds.coords['lon'] + 180) % 360 - 180
+    #ds_ccmp = ds.sortby(ds.lon)
+    ds_ccmp = ds.drop('nobs')
+    for var in ds_ccmp:
+        tem = ds_ccmp[var].attrs
+        tem['var_name']='ccmp_'+str(var)
+        ds_ccmp[var].attrs=tem
+    ds_ccmp_clim = ds_ccmp.sel(time=slice(cyr1,cyr2))
+    ds_ccmp_clim = ds_ccmp_clim.groupby('time.dayofyear').mean('time',keep_attrs=True,skipna=False)
+    
+    # AVISO test
+    fs = gcsfs.GCSFileSystem(project='pangeo-181919',requester_pays=True)
+    zstore = 'gs://pangeo-cmems-duacs/sea_surface_height_clg'
+    ds = xr.open_zarr(fs.get_mapper(zstore), consolidated=True)
+#    dir_pattern_zarr = 'F:/data/sat_data/aviso/zarr/'
+#    ds= xr.open_zarr(dir_pattern_zarr)
+    ds = ds.rename({'latitude':'lat','longitude':'lon'})
+    #ds.coords['lon'] = (ds.coords['lon'] + 180) % 360 - 180
+    #ds = ds.sortby(ds.lon)
+    ds_aviso = ds.drop({'lat_bnds','lon_bnds','crs','err'})
+    for var in ds_aviso:
+        tem = ds_aviso[var].attrs
+        tem['var_name']='aviso_'+str(var)
+        ds_aviso[var].attrs=tem
+    ds_aviso_clim = ds_aviso.sel(time=slice(cyr1,cyr2))
+    ds_aviso_clim = ds_aviso_clim.groupby('time.dayofyear').mean('time',keep_attrs=True,skipna=False)    
+   
+    #get bathymetry from ETOPO1
+    fname_topo = '/home/jovyan/data/ETOPO1_Ice_g_gmt4.grd'
+#    fname_topo = 'F:/data/topo/ETOPO1_Ice_g_gmt4.grd'
+    ds = xr.open_dataset(fname_topo)
+    ds = ds.rename_dims({'x':'lon','y':'lat'}).rename({'x':'lon','y':'lat'})
+    ds.coords['lon'] = np.mod(ds['lon'], 360)
+    ds = ds.sortby(ds.lon)
+    ds_topo = ds
+    tem = ds_topo.attrs
+    ds_topo = ds_topo.rename({'z':'etopo_depth'})
+    ds_topo.etopo_depth.attrs=tem
+    _, index = np.unique(ds_topo['lon'], return_index=True)
+    ds_topo = ds_topo.isel(lon=index)
+    _, index = np.unique(ds_topo['lat'], return_index=True)
+    ds_topo = ds_topo.isel(lat=index)
+   
+    remote_data = xr.open_dataarray(url, chunks={'S': 1, 'L': 1})
+    da = remote_data.sel(P=500)
+    #ds_color = xr.open_dataset('https://rsg.pml.ac.uk/thredds/dodsC/CCI_ALL-v4.2-DAILY')
+    ds_color = xr.open_dataarray('https://rsg.pml.ac.uk/thredds/dodsC/CCI_ALL-v4.2-DAILY', chunks={'lat': 1, 'lon': 1, 'time':1})
+    for var in ds_color:
+        if not var=='chlor_a':
+            ds_color = ds_color.drop(var)
+    ds_color.coords['lon'] = np.mod(ds_color['lon'], 360)
+    ds_color = ds_color.sortby(ds_color.lon)
+
+    #put data into a dictionary
+    data_dict={'aviso':ds_aviso,
+               'wnd':ds_ccmp,
+               'color':ds_color,
+              'topo':ds_topo}
+    clim_dict={'aviso_clim':ds_aviso_clim,
+               'wnd_clim':ds_ccmp_clim}
   
     return data_dict,clim_dict
