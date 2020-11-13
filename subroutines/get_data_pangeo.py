@@ -6,6 +6,7 @@ def get_data():
     import gcsfs
     import fsspec
     import xarray as xr
+    import numpy as np
     #climatology years
     cyr1,cyr2='1993-01-01','2018-12-31'
     
@@ -69,10 +70,9 @@ def get_data():
     data_dict={'aviso':ds_aviso,
                'wnd':ds_ccmp, 
                'color':ds_color,
-              'topo':ds_topo} # 'sst':ds_sst,
+              'topo':ds_topo} #,'sst':ds_sst}
     clim_dict={'aviso_clim':ds_aviso_clim,
-               'wnd_clim':ds_ccmp_clim}#,
-               #'sst_clim':ds_sst_clim}
+               'wnd_clim':ds_ccmp_clim}#,               'sst_clim':ds_sst_clim}
   
     return data_dict,clim_dict
 
