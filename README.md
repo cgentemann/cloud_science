@@ -2,6 +2,8 @@
 
 ![pangeo-logo](https://aws1.discourse-cdn.com/standard14/uploads/pangeo/original/1X/657e3c5e0885ee4e5c2062c58f9aa094fa4b14a4.png)
 
+<img src="https://github.com/nasa/Transform-to-Open-Science/blob/main/assets/logos/Tops_logo%404x.png" alt="drawing" width="200"/>
+
 This repository tutorial materials for tutorials on cloud data.  The links below will launch an interactive environment on [binder.pangeo.io](https://binder.pangeo.io/) Note that binder environments are ephemeral. Any changes you make will be lost once your session ends, and you shouldn't store passwords.
 
 To explore Pangeo data on GCP (eg. CCMP), select the button 'Pangeo Binder GCP US-central1', and then, once the binder initializes, select 'tutorials'. 
